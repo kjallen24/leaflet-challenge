@@ -11,3 +11,21 @@ var graymap_background = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tile
   zoomOffset: -1,
   accessToken: 'your.mapbox.access.token'
 }).addTo(map);
+
+ // Gradient color scale for magnitude markers
+ function getColor(magnitude) {
+    switch (true) {
+      case magnitude > 5:
+        return "#FF284D";
+      case magnitude > 4:
+        return "#FF4162";
+      case magnitude > 3:
+        return "#FF5B77";
+      case magnitude > 2:
+        return "#FF748C";
+      case magnitude > 1:
+        return "#FF8EA1";
+      default:
+        return "#FFA7B6";
+    }
+  }
