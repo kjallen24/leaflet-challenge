@@ -1,13 +1,29 @@
-  
 
-var graymap_background = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={"API_KEY"}', {
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 18,
-  id: 'mapbox/streets-v11',
-  tileSize: 512,
-  zoomOffset: -1,
-  accessToken: 'your.mapbox.access.token'
-}).addTo(map);
+// set-up layers for maps
+var maps = {
+ birds_eyeview: birdseyeview_background,
+ Terrain: terrain_background
+ GrayMap: graymap_background,
+};
+// layers for two different sets of data, earthquakes and tectonicplates.
+var tectonicplates = new L.LayerGroup();
+var earthquakes = new L.LayerGroup();
+
+// additional layers
+var addlayers = {
+ "Tectonic Plates": tectonicplates,
+ "Earthquakes": earthquakes
+};
+
+// adding one 'graymap' tile layer to the map.
+graymap_background.addTo(map);
+
+// control which layers are visible.
+L.control
+ .layers(maps, addlayers)
+ .addTo(map);
+
+
 
 
 // Pulls geoJSON data of hourly data.
