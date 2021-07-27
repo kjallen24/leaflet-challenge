@@ -1,5 +1,4 @@
   
-//var eq_url= 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson'
 
 //var earthquakes = new L.LayerGroup();
 
