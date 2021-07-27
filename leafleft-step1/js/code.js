@@ -23,7 +23,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geoj
      weight: 0.5
    };
  }
- // Gradient color scale for magnitude markers
+ // Gradient color scale for magnitude markersm using getColor func
  function getColor(magnitude) {
     switch (true) {
       case magnitude > 5:
