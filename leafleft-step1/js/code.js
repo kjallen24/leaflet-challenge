@@ -1,3 +1,4 @@
+//add in APi K
 
 // set-up layers for maps
 var maps = {
@@ -5,29 +6,18 @@ var maps = {
  Terrain: terrain_background
  GrayMap: graymap_background,
 };
-// layers for two different sets of data, earthquakes and tectonicplates.
-var tectonicplates = new L.LayerGroup();
-var earthquakes = new L.LayerGroup();
-
-// additional layers
-var addlayers = {
- "Tectonic Plates": tectonicplates,
- "Earthquakes": earthquakes
-};
 
 // adding one 'graymap' tile layer to the map.
 graymap_background.addTo(map);
 
 // control which layers are visible.
-L.control
+L.control{
  .layers(maps, addlayers)
  .addTo(map);
-
-
-
+}
 
 // Pulls geoJSON data of hourly data.
-d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson", function(data) {
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson", function(data) {
  function styleInfo(feature) {
    return {
      opacity: 1,
@@ -39,6 +29,16 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geoj
      weight: 0.5
    };
  }
+  // adding geoJSON layer to the map
+  L.geoJson(data, {
+    pointToLayer: function(feature, latlng) {
+      return L.circleMarker(latlng);
+    },
+    style: styleInfo,
+    onEachFeature: function(feature, layer) {
+      layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
+    }
+
  // Gradient color scale for magnitude markersm using getColor func
  function getColor(magnitude) {
     switch (true) {
@@ -55,4 +55,18 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geoj
       default:
         return "#FFA7B6";
     }
+  legend.onAdd = function() {
+      var div = L
+        .DomUtil
+        .create("div", "info legend");
+      var grades = [0, 1, 2, 3, 4, 5];
+      var colors = [
+        "#E7169F", // HOT PINK
+        "#BB16E7", // HOT PURPLE
+        "#1639E7", // HOT BLUE
+        "#11C714", // HOT GREEN
+        "#DDD40C", // YELLOW
+        "#DD360C"  // RED
+      ];
+      legend.addTo(map);
   }
