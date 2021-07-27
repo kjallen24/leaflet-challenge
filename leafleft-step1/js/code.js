@@ -1,4 +1,4 @@
-//add in APi K
+//add in APi Key
 
 // set-up layers for maps
 var maps = {
@@ -7,12 +7,12 @@ var maps = {
  GrayMap: graymap_background,
 };
 
-// adding one 'graymap' tile layer to the map.
+// adding 'graymap' tile layer to the map
 graymap_background.addTo(map);
 
-// control which layers are visible.
+// controlling which layers are visible.
 L.control{
- .layers(maps, addlayers)
+ .layers(maps)
  .addTo(map);
 }
 
