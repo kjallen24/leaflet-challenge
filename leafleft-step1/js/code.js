@@ -9,6 +9,20 @@ var graymap_background = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tile
   accessToken: 'your.mapbox.access.token'
 }).addTo(map);
 
+
+// Pulls geoJSON data of hourly data.
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson", function(data) {
+ function styleInfo(feature) {
+   return {
+     opacity: 1,
+     fillOpacity: 1,
+     fillColor: getColor(feature.properties.mag),
+     color: "#000000",
+     radius: getRadius(feature.properties.mag),
+     stroke: true,
+     weight: 0.5
+   };
+ }
  // Gradient color scale for magnitude markers
  function getColor(magnitude) {
     switch (true) {
